@@ -11,7 +11,8 @@ config_version=5
 [application]
 
 config/name="EFA_C"
-config/features=PackedStringArray("4.6", "GL Compatibility")
+run/main_scene="uid://2w0svpbmcw4i"
+config/features=PackedStringArray("4.6", "C#", "GL Compatibility")
 
 [dotnet]
 

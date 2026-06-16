@@ -3,13 +3,34 @@ using System;
 
 public partial class MainController : Node
 {
-	// Called when the node enters the scene tree for the first time.
+	
+	private BackCore _backCore;
+	[Export] private VisualCore _visualCore;
+
 	public override void _Ready()
 	{
+		
+		_backCore = new BackCore();
+		_backCore.Init(this);
+		_visualCore.Init(this);
+
 	}
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
+	// VISUAL TO BACK COMMANDS ==============================================
+	public void SendText(string text)
 	{
+		
+		string response = _backCore.StartCommand(text);
+		if (response != null) VizualizeAnswer(response);
+
 	}
+
+	// BACK TO VISUAL COMMANDS ===============================================
+	public void VizualizeAnswer(string response)
+	{
+		
+		_visualCore.VizualizeResponse(response);
+
+	}
+
 }

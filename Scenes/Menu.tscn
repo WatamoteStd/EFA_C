@@ -1,5 +1,14 @@
 [gd_scene format=3 uid="uid://2w0svpbmcw4i"]
 
+[ext_resource type="Script" uid="uid://cfk6cwepdj0ar" path="res://Scripts/MainController.cs" id="1_3kf3n"]
+[ext_resource type="Script" uid="uid://fbcmw3iuwaui" path="res://Scripts/Frontend/VisualCore.cs" id="2_6pedr"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6pedr"]
+bg_color = Color(0.4036613, 0.01526027, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_syfuq"]
+bg_color = Color(0.043137256, 0.043137256, 0.043137256, 0.972549)
+
 [node name="Menu" type="Control" unique_id=1214716489]
 layout_mode = 3
 anchors_preset = 15
@@ -8,4 +17,52 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MainController" type="Node" parent="." unique_id=862343760]
+[node name="MainController" type="Node" parent="." unique_id=862343760 node_paths=PackedStringArray("_visualCore")]
+script = ExtResource("1_3kf3n")
+_visualCore = NodePath("VisualCore")
+
+[node name="VisualCore" type="Control" parent="MainController" unique_id=984239271 node_paths=PackedStringArray("_logDisplay", "_logMsg")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_6pedr")
+_logDisplay = NodePath("Window/WindowBorders/MainConsole/VBoxContainer/ConsoleLog")
+_logMsg = NodePath("Window/WindowBorders/MainConsole/VBoxContainer/ConsoleSend")
+
+[node name="Window" type="PanelContainer" parent="MainController/VisualCore" unique_id=2136574182]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_6pedr")
+
+[node name="WindowBorders" type="MarginContainer" parent="MainController/VisualCore/Window" unique_id=1329927932]
+layout_mode = 2
+theme_override_constants/margin_bottom = 25
+
+[node name="MainConsole" type="PanelContainer" parent="MainController/VisualCore/Window/WindowBorders" unique_id=832686891]
+custom_minimum_size = Vector2(450, 200)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_override_styles/panel = SubResource("StyleBoxFlat_syfuq")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainController/VisualCore/Window/WindowBorders/MainConsole" unique_id=1029515561]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="ConsoleLog" type="RichTextLabel" parent="MainController/VisualCore/Window/WindowBorders/MainConsole/VBoxContainer" unique_id=596667003]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/normal_font_size = 14
+bbcode_enabled = true
+scroll_following = true
+
+[node name="ConsoleSend" type="LineEdit" parent="MainController/VisualCore/Window/WindowBorders/MainConsole/VBoxContainer" unique_id=1947254443]
+layout_mode = 2
+placeholder_text = ">"
